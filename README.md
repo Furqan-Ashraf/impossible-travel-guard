@@ -1,8 +1,8 @@
 # impossible-travel-guard
 
-Flag a login as suspicious when it implies physically impossible travel speed from the account's previous login. No geolocation API, including IPGeolocation.io, ships this check as a built-in feature. They give you a location for one IP. This library does the part after that: store the last login, compare it to the new one, and tell you if a human could not plausibly have made that trip.
+**Catch account takeover by checking if a login is even physically possible.**
 
-It is one of the few account-takeover signals that compares a user against their own history instead of a blacklist, so it works even when both IP addresses look perfectly clean on their own.
+Someone logs into an account from New York. Forty minutes later, the same account logs in from Lagos. No human made that trip, so the second login should never be trusted the same as the first. That is the entire idea behind this library, and it is a check almost no app runs today.
 
 ```
 New York login at 09:00
@@ -11,9 +11,27 @@ Lagos login at 09:40
 => flagged
 ```
 
-## Why this exists
+## Who this is for
 
-Most fraud content (including guides on IP-based fraud detection) describes this exact pattern: store each login's location and timestamp, compute distance and elapsed time, flag anything faster than a plane could manage. Every write-up describes the logic. None of them ship the code. This package is that missing piece, small, dependency-free, and provider-agnostic, it takes latitude/longitude from wherever you already get them.
+Developers building login or authentication for an app, SaaS product, or e-commerce site, who want to automatically catch account takeover without hand-rolling this logic themselves.
+
+## What it actually does
+
+Every geolocation API, including IPGeolocation.io, gives you a location for one IP address. None of them ship the part that comes after that: remembering a user's last login, comparing it to their new one, and telling you if a human could plausibly have made that trip in the time between. This library is that missing piece.
+
+It is one of the few account-takeover signals that compares a user against their own history instead of a blacklist. That means it still works even when both IP addresses look perfectly clean on their own, no VPN flag, no bad reputation, nothing else suspicious about either login individually. The only thing wrong is the sequence.
+
+## Try it live, no install needed
+
+Open the live demo, pick two cities and a time gap, and see it flag (or clear) a login pair in your browser: **[demo link here once GitHub Pages is enabled]**
+
+## How it helps you
+
+- Drops into an existing login flow in about five lines of code.
+- Zero runtime dependencies, small enough to read in one sitting.
+- Works with whatever geolocation provider you already use, latitude and longitude in, a decision out.
+- Ships with a pluggable storage interface, so it fits whatever database or cache you already run.
+- Comes with a tested, working example instead of a blog post that only describes the logic.
 
 ## Install
 
@@ -98,13 +116,13 @@ This is one signal, not a fraud engine. It has no opinion on VPNs, proxies, devi
 
 Clone the repo, install dependencies, then build and test:
 
-\`\`\`bash
+```bash
 git clone https://github.com/Furqan-Ashraf/impossible-travel-guard.git
 cd impossible-travel-guard
 npm install
 npm run build
 npm test
-\`\`\`
+```
 
 All 5 tests should pass (same-city logins ignored, plausible flights pass, physically impossible sequences flagged). Tests live in `test/travelGuard.test.ts` and run on Node's built-in test runner via `tsx`, no extra test framework to install.
 
@@ -126,7 +144,10 @@ See Configuration above.
 | `previousLogin` | LoginEvent \| null | The login this was compared against |
 | `currentLogin` | LoginEvent | The event that was just checked |
 
+## Contributing
+
+Issues and pull requests are welcome. If you find a false positive or false negative worth handling differently, open an issue with the two login events involved, real numbers make it easy to reason about.
+
 ## License
 
 MIT
-#
