@@ -94,6 +94,20 @@ Treat a flag as a prompt for step-up verification, not an automatic block. Real 
 
 This is one signal, not a fraud engine. It has no opinion on VPNs, proxies, device fingerprints, or IP reputation, pair it with those if you need them. It also cannot tell you why a trip is impossible, just that it is, a shared corporate VPN egress point flipping between two data centers can trigger a false positive too. Log enough context to review flags by hand until you trust your thresholds.
 
+## Development
+
+Clone the repo, install dependencies, then build and test:
+
+\`\`\`bash
+git clone https://github.com/Furqan-Ashraf/impossible-travel-guard.git
+cd impossible-travel-guard
+npm install
+npm run build
+npm test
+\`\`\`
+
+All 5 tests should pass (same-city logins ignored, plausible flights pass, physically impossible sequences flagged). Tests live in `test/travelGuard.test.ts` and run on Node's built-in test runner via `tsx`, no extra test framework to install.
+
 ## API
 
 ### `new TravelGuard(options?)`
