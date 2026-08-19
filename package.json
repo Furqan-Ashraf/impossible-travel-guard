@@ -1,6 +1,6 @@
 {
   "name": "impossible-travel-guard",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Flag account logins that imply physically impossible travel speed between two locations. A missing building block for account-takeover detection, works with any geolocation provider.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
