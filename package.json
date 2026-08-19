@@ -1,0 +1,31 @@
+{
+  "name": "impossible-travel-guard",
+  "version": "0.1.0",
+  "description": "Flag account logins that imply physically impossible travel speed between two locations. A missing building block for account-takeover detection, works with any geolocation provider.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "security",
+    "fraud-detection",
+    "account-takeover",
+    "geolocation",
+    "authentication",
+    "impossible-travel"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tsx": "^4.16.0",
+    "@types/node": "^20.14.0",
+    "express": "^4.19.0",
+    "@types/express": "^4.17.21"
+  }
+}
