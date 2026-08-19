@@ -23,7 +23,7 @@ It is one of the few account-takeover signals that compares a user against their
 
 ## Try it live, no install needed
 
-Open the live demo, pick two cities and a time gap, and see it flag (or clear) a login pair in your browser: **[demo link here once GitHub Pages is enabled]**
+Open the live demo, pick two cities and a time gap, and see it flag (or clear) a login pair in your browser: **[https://furqan-ashraf.github.io/impossible-travel-guard/](https://furqan-ashraf.github.io/impossible-travel-guard/)**
 
 ## How it helps you
 
