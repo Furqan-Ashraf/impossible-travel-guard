@@ -23,7 +23,7 @@ It is one of the few account-takeover signals that compares a user against their
 
 ## Try it live, no install needed
 
-Open the live demo, pick two cities and a time gap, and see it flag (or clear) a login pair in your browser: **[https://furqan-ashraf.github.io/impossible-travel-guard/](https://furqan-ashraf.github.io/impossible-travel-guard/)**
+Open the live demo, pick two cities and a time gap, and see it flag (or clear) a login pair in your browser: **[demo link here once GitHub Pages is enabled]**
 
 ## How it helps you
 
@@ -71,6 +71,21 @@ import { loginEventFromIp } from "./examples/ipgeolocation-adapter";
 const event = await loginEventFromIp(userId, req.ip);
 const result = await guard.check(event);
 ```
+
+### Testing this with real IP addresses, not sample data
+
+`examples/live-test.ts` runs the whole flow end to end with two real IP addresses and a real IPGeolocation.io key, exactly what your sign-in form's backend would do, no hardcoded coordinates.
+
+```bash
+# 1. Get a free key at https://ipgeolocation.io
+# 2. Set it as an environment variable (never hardcode a key in your code)
+export IPGEO_API_KEY="your-key-here"
+
+# 3. Run it with two real IPs and the minutes between logins
+npx tsx examples/live-test.ts 8.8.8.8 197.210.28.1 40
+```
+
+This resolves both IPs to real coordinates, runs the same check as `guard.check()`, and prints the distance, elapsed time, implied speed, and whether it would be flagged. Note this only works from a backend/script, never call the geolocation API directly from a browser, that exposes your API key to anyone who views the page source.
 
 ## Configuration
 
